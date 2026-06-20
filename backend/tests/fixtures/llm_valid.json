@@ -1,0 +1,15 @@
+{
+  "summary": "Here are the top restaurants matching your preferences.",
+  "recommendations": [
+    {
+      "restaurant_id": "aaa111",
+      "rank": 1,
+      "explanation": "Great North Indian food with highly rated dishes."
+    },
+    {
+      "restaurant_id": "eee555",
+      "rank": 2,
+      "explanation": "Premium Mughlai cuisine, perfect for a high rating experience."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "summary": "Found some matches, but some might be made up.",
+  "recommendations": [
+    {
+      "restaurant_id": "aaa111",
+      "rank": 1,
+      "explanation": "Great choice!"
+    },
+    {
+      "restaurant_id": "hallucinated_999",
+      "rank": 2,
+      "explanation": "This restaurant does not exist."
+    },
+    {
+      "restaurant_id": "eee555",
+      "rank": 3,
+      "explanation": "Another great choice!"
+    }
+  ]
+}

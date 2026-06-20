@@ -1,0 +1,57 @@
+.app header {
+  margin-bottom: 1.5rem;
+}
+
+.app h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+}
+
+.app .subtitle {
+  margin: 0;
+  color: #555;
+}
+
+.health-panel {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.health-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.health-panel button {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.health-panel button:hover {
+  background: #f0f0f0;
+}
+
+.health-panel pre {
+  margin: 0;
+  padding: 0.75rem;
+  background: #f4f4f5;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.health-panel .error {
+  color: #b42318;
+}
+
+.health-panel .hint {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #666;
+}

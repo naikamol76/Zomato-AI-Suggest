@@ -1,0 +1,10 @@
+Here is the recommendation JSON:
+
+```json
+{
+  "summary": "This JSON is deliberately cut off",
+  "recommendations": [
+    {
+      "restaurant_id": "aaa111",
+      "rank": 1,
+      "explanation": "Cut off mid-sentence...

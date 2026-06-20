@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zomato AI Suggest - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#dde4dd",
+                    "on-primary-container": "#00422b",
+                    "tertiary-fixed": "#ffddb8",
+                    "background": "#0e1511",
+                    "primary-container": "#10b981",
+                    "on-secondary-fixed": "#07006c",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#242c27",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-secondary-container": "#b0b2ff",
+                    "surface-container-low": "#161d19",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "on-surface": "#dde4dd",
+                    "on-secondary": "#1000a9",
+                    "on-tertiary-container": "#523200",
+                    "surface-tint": "#4edea3",
+                    "surface-variant": "#2f3632",
+                    "tertiary": "#ffb95f",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-primary-fixed": "#002113",
+                    "on-surface-variant": "#bbcabf",
+                    "outline": "#86948a",
+                    "on-error-container": "#ffdad6",
+                    "on-background": "#dde4dd",
+                    "inverse-on-surface": "#2b322d",
+                    "primary-fixed-dim": "#4edea3",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "surface-dim": "#0e1511",
+                    "surface": "#0e1511",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#09100c",
+                    "surface-container": "#1a211d",
+                    "error": "#ffb4ab",
+                    "surface-bright": "#343b36",
+                    "secondary": "#c0c1ff",
+                    "on-primary": "#003824",
+                    "inverse-primary": "#006c49",
+                    "primary": "#4edea3",
+                    "surface-container-highest": "#2f3632",
+                    "primary-fixed": "#6ffbbe",
+                    "secondary-container": "#3131c0",
+                    "on-tertiary": "#472a00",
+                    "outline-variant": "#3c4a42",
+                    "tertiary-container": "#e29100"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "gutter": "20px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "xl": "48px",
+                    "unit": "4px",
+                    "container-max": "1280px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Outfit"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Outfit"],
+                    "headline-lg-mobile": ["Outfit"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Outfit"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(19, 27, 46, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .ai-border-gradient {
+            border: 1px solid transparent;
+            background-image: linear-gradient(#131b2e, #131b2e), linear-gradient(to right, #7c3aed, #10b981);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .shimmer-bg {
+            position: relative;
+            overflow: hidden;
+            background: #161d19;
+        }
+        .shimmer-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        .pulse-glow {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(78,222,163,0.4)); }
+            50% { filter: drop-shadow(0 0 15px rgba(78,222,163,0.8)); }
+        }
+        input:checked + label {
+            border-color: #4edea3;
+            box-shadow: 0 0 10px rgba(78,222,163,0.5);
+            background: rgba(16, 185, 129, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 lg:pb-0">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-white/5 shadow-2xl h-16 flex items-center justify-between px-gutter">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary font-bold text-headline-md pulse-glow">blur_on</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary drop-shadow-[0_0_10px_rgba(78,222,163,0.5)]">
+                Zomato AI Suggest <span class="text-tertiary">✦</span>
+</h1>
+</div>
+<div class="hidden md:flex items-center gap-sm bg-surface-container-high px-md py-xs rounded-full border border-primary/20">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-label-sm text-primary uppercase tracking-wider">System Connected</span>
+</div>
+<button class="md:hidden text-on-surface-variant scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+</header>
+<!-- Side Navigation (Desktop Only) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-80 bg-surface-container-low border-r border-white/5 p-md space-y-md">
+<div class="px-md py-sm">
+<h2 class="text-label-md font-headline-md text-primary">Preferences</h2>
+</div>
+<nav class="flex flex-col gap-xs">
+<button class="flex items-center gap-md p-md bg-primary-container text-on-primary-container rounded-lg mx-2 transition-all hover:translate-x-1">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-md">Location</span>
+</button>
+<button class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant/50 mx-2 rounded-lg transition-all hover:translate-x-1">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-md">Cuisine</span>
+</button>
+<button class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant/50 mx-2 rounded-lg transition-all hover:translate-x-1">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md">Budget</span>
+</button>
+<button class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant/50 mx-2 rounded-lg transition-all hover:translate-x-1">
+<span class="material-symbols-outlined">star</span>
+<span class="font-label-md">Ratings</span>
+</button>
+</nav>
+</aside>
+<main class="mt-16 lg:ml-80 px-4 md:px-lg py-lg max-w-4xl mx-auto space-y-xl">
+<!-- Intro State Canvas -->
+<section class="glass-card rounded-2xl p-lg flex flex-col items-center text-center space-y-md relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 blur-[80px] rounded-full"></div>
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/30 shadow-[0_0_20px_rgba(78,222,163,0.2)]">
+<span class="material-symbols-outlined text-primary text-3xl">flare</span>
+</div>
+<div class="space-y-xs">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary-fixed-dim">Tailor your cravings</h2>
+<p class="text-on-surface-variant max-w-md mx-auto text-body-md">Our advanced LLM analyzes thousands of menu items, reviews, and kitchen performance metrics to suggest your perfect meal.</p>
+</div>
+</section>
+<!-- Preference Form -->
+<section class="space-y-lg">
+<h3 class="text-label-md uppercase tracking-widest text-outline">Configure Engine</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- City Select -->
+<div class="space-y-sm">
+<label class="text-label-md text-on-surface/80">Current City</label>
+<div class="relative">
+<select class="w-full bg-surface-container rounded-xl border border-outline-variant px-md py-lg appearance-none focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option>Mumbai (Bandra/Juhu)</option>
+<option>Delhi (NCR)</option>
+<option>Bangalore (Koramangala)</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Cuisine Select (Disabled Placeholder) -->
+<div class="space-y-sm opacity-50 cursor-not-allowed">
+<label class="text-label-md text-on-surface/80">Cuisine Focus (Auto-detected)</label>
+<div class="bg-surface-container rounded-xl border border-outline-variant px-md py-lg flex items-center justify-between">
+<span class="text-on-surface-variant">Multicuisine Intelligence...</span>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+</div>
+</div>
+<!-- Budget Selector -->
+<div class="space-y-sm">
+<label class="text-label-md text-on-surface/80">Budget Range</label>
+<div class="grid grid-cols-3 gap-md">
+<div class="relative">
+<input checked="" class="hidden" id="budget1" name="budget" type="radio"/>
+<label class="flex flex-col items-center justify-center p-md bg-surface-container rounded-xl border border-outline-variant cursor-pointer transition-all hover:border-primary/50" for="budget1">
+<span class="text-headline-md font-bold">₹</span>
+<span class="text-label-sm text-outline uppercase">Budget</span>
+</label>
+</div>
+<div class="relative">
+<input class="hidden" id="budget2" name="budget" type="radio"/>
+<label class="flex flex-col items-center justify-center p-md bg-surface-container rounded-xl border border-outline-variant cursor-pointer transition-all hover:border-primary/50" for="budget2">
+<span class="text-headline-md font-bold text-primary">₹₹</span>
+<span class="text-label-sm text-outline uppercase">Mid-tier</span>
+</label>
+</div>
+<div class="relative">
+<input class="hidden" id="budget3" name="budget" type="radio"/>
+<label class="flex flex-col items-center justify-center p-md bg-surface-container rounded-xl border border-outline-variant cursor-pointer transition-all hover:border-primary/50" for="budget3">
+<span class="text-headline-md font-bold text-tertiary">₹₹₹</span>
+<span class="text-label-sm text-outline uppercase">Premium</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Rating Slider -->
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="text-label-md text-on-surface/80">Minimum Rating</label>
+<span class="text-tertiary font-bold px-md py-xs bg-tertiary/10 rounded-full border border-tertiary/20">4.2 ★</span>
+</div>
+<input class="w-full accent-primary h-1 bg-surface-container-highest rounded-full appearance-none cursor-pointer" max="5" min="1" step="0.1" type="range" value="4.2"/>
+</div>
+<!-- Additional Notes -->
+<div class="space-y-sm">
+<label class="text-label-md text-on-surface/80">Additional Notes (Optional)</label>
+<textarea class="w-full bg-surface-container rounded-xl border border-outline-variant p-md focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none" placeholder="e.g. Roof-top seating preferred, vegan options required..." rows="3"></textarea>
+</div>
+<button class="w-full py-lg bg-primary text-on-primary font-bold rounded-xl shadow-[0_10px_20px_rgba(78,222,163,0.3)] hover:shadow-[0_10px_30px_rgba(78,222,163,0.5)] transition-all flex items-center justify-center gap-md">
+<span class="material-symbols-outlined">auto_awesome</span>
+                Get Recommendations
+            </button>
+</section>
+<!-- Loading State Simulation (Shimmer) -->
+<div class="hidden space-y-md" id="loading-simulator">
+<div class="h-8 w-48 shimmer-bg rounded-lg"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="h-64 shimmer-bg rounded-2xl"></div>
+<div class="h-64 shimmer-bg rounded-2xl"></div>
+</div>
+</div>
+<!-- Results State Mockup -->
+<section class="space-y-xl">
+<!-- Metadata Panel -->
+<div class="ai-border-gradient rounded-2xl p-lg space-y-md shadow-2xl relative">
+<div class="flex flex-wrap items-center justify-between gap-md">
+<div class="flex items-center gap-md">
+<div class="px-md py-xs bg-primary/10 border border-primary/20 rounded-lg">
+<span class="text-label-sm text-primary font-bold">128 Candidates Considered</span>
+</div>
+<div class="px-md py-xs bg-secondary-container/30 border border-secondary/20 rounded-lg">
+<span class="text-label-sm text-secondary font-bold">llama-3.3-70b-versatile</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<p class="text-body-md text-on-surface-variant border-l-2 border-primary/30 pl-md italic">
+                    "Analyzing peak evening traffic and recent sentiment spikes, I've prioritized establishments with consistent quality in signature spice blends and ambiance suited for weekend dining."
+                </p>
+</div>
+<!-- Recommendation Cards Container -->
+<div class="space-y-lg">
+<!-- Rank #1 -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="relative h-48">
+<img class="w-full h-full object-cover" data-alt="A professional, high-end food photography shot of a luxury restaurant interior in Bandra. Warm amber mood lighting reflects off polished wooden tables. Elegant plating of North Indian Mughlai cuisine with vibrant colors and rich textures. Dark slate background, modern aesthetic, cinematic lighting, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkYLEp_rOQ5dqTZ4H23zMtVqqjKopxu1kvwG9KnNY5_8MUaiOHVG_r9rLKjzp09C9G5D8U6dFbvHVdT_FTgQewbWBvCB8FCeN3RtIIUn8bLytL_RUhllB7Y_51j8c9Qru4M7VcpctmUZGTumxQkLhOCQhL9q8YzaOR4x1c7qqKKFr6WkEKXGSNjXHofOuSlWAofDtrD0C4emMNs4S2zVa8d58aD8y2c1t2hIdCvnxvxDQJSm9x-s99MT70om7yuFEzRrN79sMEb_s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-md left-md flex items-end justify-between w-[calc(100%-32px)]">
+<div>
+<span class="bg-tertiary text-on-tertiary px-md py-xs rounded-full text-label-sm font-bold mb-xs inline-block">Rank #1 · Amber Premium</span>
+<h4 class="text-headline-md font-bold text-white">The Gourmet Kitchen</h4>
+<p class="text-on-surface-variant text-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">location_on</span> Bandra West, Mumbai
+                                </p>
+</div>
+<div class="bg-primary px-md py-xs rounded-lg font-bold text-on-primary">
+                                4.8 ★
+                            </div>
+</div>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex flex-wrap gap-sm">
+<span class="border border-outline-variant text-label-sm px-md py-xs rounded-full">North Indian</span>
+<span class="border border-outline-variant text-label-sm px-md py-xs rounded-full">Mughlai</span>
+<span class="border border-outline-variant text-label-sm px-md py-xs rounded-full text-tertiary">₹₹₹ HIGH</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant text-label-md">₹2,500 for two (Approx.)</span>
+<button class="text-primary font-bold flex items-center gap-xs text-label-md group-hover:underline">
+                                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Rationale -->
+<div class="bg-surface-container-high rounded-xl p-md border border-white/5 space-y-xs">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-label-sm font-bold text-primary uppercase tracking-wider">AI Suggestion Rationale</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Recommended for its exceptional "Butter Chicken" which has seen a 24% increase in positive sentiment this month. High reliability for large groups.</p>
+</div>
+</div>
+</div>
+<!-- Rank #2 -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="relative h-48">
+<img class="w-full h-full object-cover" data-alt="A trendy, modern seafood restaurant interior in Juhu with a coastal breeze aesthetic. Large glass windows showing a hint of the sunset beach. Indigo and violet accent lighting. A beautifully presented platter of continental seafood. High-end modern dark UI photography style, sharp focus, vibrant yet deep colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk2cTb1lZ2YNuNFxApELrq5ychaZxsEKRaVtA2wbed7S4q6Em9Qe6AX9OQ-hjN86bWbSmsBCBnu_eg6aD0pokZphwFBFxEnbgNP3Libz_oDv5este5RT1YQinOwsM0reWpXno-QWUz-u6BwXmG38Y1XARlYXHwlEmqql7GqgnyGhLJAhElPT9dSMNXsnykF4LwNbwKuTUjqnlTgJjK13EKuLNiGfk15rBeP39X59dc15NWQR3R6e7p2vQd7JI9wuMjus2eQ8phicw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-md left-md flex items-end justify-between w-[calc(100%-32px)]">
+<div>
+<span class="bg-secondary-container text-on-secondary-container px-md py-xs rounded-full text-label-sm font-bold mb-xs inline-block">Rank #2 · Coastal Indigo</span>
+<h4 class="text-headline-md font-bold text-white">Ocean Breeze</h4>
+<p class="text-on-surface-variant text-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">location_on</span> Juhu, Mumbai
+                                </p>
+</div>
+<div class="bg-secondary-container text-secondary px-md py-xs rounded-lg font-bold border border-secondary/30">
+                                4.3 ★
+                            </div>
+</div>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex flex-wrap gap-sm">
+<span class="border border-outline-variant text-label-sm px-md py-xs rounded-full">Seafood</span>
+<span class="border border-outline-variant text-label-sm px-md py-xs rounded-full">Continental</span>
+<span class="border border-outline-variant text-label-sm px-md py-xs rounded-full text-secondary">₹₹ MEDIUM</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant text-label-md">₹1,800 for two (Approx.)</span>
+<button class="text-primary font-bold flex items-center gap-xs text-label-md group-hover:underline">
+                                View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Rationale -->
+<div class="bg-surface-container-high rounded-xl p-md border border-white/5 space-y-xs">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-label-sm font-bold text-primary uppercase tracking-wider">AI Suggestion Rationale</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Top-rated for outdoor ambiance. Matching your "Seafood" preference with high-scored "Prawn Ghee Roast" availability today.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full bg-surface-container/90 backdrop-blur-lg border-t border-white/5 flex justify-around items-center py-3 pb-safe z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.3)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-primary font-bold scale-110 transition-transform duration-200">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-label-sm">Discover</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary/80 transition-transform">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-label-sm">Saved</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary/80 transition-transform">
+<span class="material-symbols-outlined">history</span>
+<span class="text-label-sm">Activity</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary/80 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm">Profile</span>
+</button>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelector('button.bg-primary').addEventListener('click', function() {
+            const btn = this;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Processing Intelligence...';
+            btn.disabled = true;
+            
+            // Show loading skeleton simulation
+            const loader = document.getElementById('loading-simulator');
+            loader.classList.remove('hidden');
+            window.scrollTo({ top: loader.offsetTop - 100, behavior: 'smooth' });
+
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                loader.classList.add('hidden');
+                // In a real app, we would inject new results here
+            }, 3000);
+        });
+    </script>
+</body></html>

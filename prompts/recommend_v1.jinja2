@@ -1,0 +1,26 @@
+User preferences:
+{{ preferences_json }}
+
+Candidate restaurants (you MUST only recommend from this list — do not invent IDs or venues):
+{{ candidates_json }}
+
+Task:
+1. Rank up to {{ max_recommendations }} restaurants that best match the user's preferences.
+2. Use additional_notes when provided to justify choices.
+3. Return valid JSON only, matching this schema:
+
+{
+  "summary": "optional one-line overview",
+  "recommendations": [
+    {
+      "restaurant_id": "must match a candidate restaurant_id exactly",
+      "rank": 1,
+      "explanation": "2-3 sentences referencing user criteria"
+    }
+  ]
+}
+
+Rules:
+- Every restaurant_id MUST exist in the candidate list above.
+- Do not include rating, cost, or address in JSON — only restaurant_id, rank, and explanation.
+- If no candidate is a good fit, return an empty recommendations array and explain in summary.
